@@ -10,7 +10,7 @@ export default function JobDescriptionForm() {
   const [resume, setResume] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     if (resume) URL.revokeObjectURL(resume);
@@ -26,9 +26,7 @@ export default function JobDescriptionForm() {
     } finally {
       setLoading(false);
     }
-  }
-
-  console.log(resume);
+  };
 
   return (
     <div className="flex flex-col items-center w-full max-w-2xl">
