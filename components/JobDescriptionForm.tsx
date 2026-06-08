@@ -1,31 +1,34 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
-import ResumePreview from '@/components/ResumePreview'
+import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import ResumePreview from "@/components/ResumePreview";
 
 export default function JobDescriptionForm() {
-  const [jobDescription, setJobDescription] = useState('')
-  const [resume, setResume] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [jobDescription, setJobDescription] = useState("");
+  const [resume, setResume] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setLoading(true)
-    setResume(null)
+    e.preventDefault();
+    setLoading(true);
+    if (resume) URL.revokeObjectURL(resume);
+    setResume(null);
     try {
-      const res = await fetch('/api/job-description', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/job-description", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ jobDescription }),
-      })
-      const data = await res.json()
-      if (data.resume) setResume(data.resume)
+      });
+      const blob = await res.blob();
+      setResume(URL.createObjectURL(blob));
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
+
+  console.log(resume);
 
   return (
     <div className="flex flex-col items-center w-full max-w-2xl">
@@ -40,11 +43,15 @@ export default function JobDescriptionForm() {
           onChange={(e) => setJobDescription(e.target.value)}
           className="min-h-48 resize-y"
         />
-        <Button type="submit" disabled={loading || !jobDescription.trim()} className="self-end">
-          {loading ? 'Generating…' : 'Submit'}
+        <Button
+          type="submit"
+          disabled={loading || !jobDescription.trim()}
+          className="self-end"
+        >
+          {loading ? "Generating…" : "Submit"}
         </Button>
       </form>
       {resume && <ResumePreview content={resume} />}
     </div>
-  )
+  );
 }

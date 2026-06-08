@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(pnpm dlx *)",
-      "Bash(mkdir -p /Users/apple/Desktop/resume-builder/app/api/job-description)"
+      "Bash(mkdir -p /Users/apple/Desktop/resume-builder/app/api/job-description)",
+      "Bash(pnpm add *)"
     ],
     "additionalDirectories": [
       "/Users/apple/Desktop/resume-builder/app/api"
