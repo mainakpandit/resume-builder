@@ -7,13 +7,12 @@ import ResumePreview from "@/components/ResumePreview";
 
 export default function JobDescriptionForm() {
   const [jobDescription, setJobDescription] = useState("");
-  const [resume, setResume] = useState<string | null>(null);
+  const [resume, setResume] = useState<Blob | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    if (resume) URL.revokeObjectURL(resume);
     setResume(null);
     try {
       const res = await fetch("/api/job-description", {
@@ -22,7 +21,7 @@ export default function JobDescriptionForm() {
         body: JSON.stringify({ jobDescription }),
       });
       const blob = await res.blob();
-      setResume(URL.createObjectURL(blob));
+      setResume(blob);
     } finally {
       setLoading(false);
     }

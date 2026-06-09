@@ -1,21 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useCallback } from "react";
 
 interface ResumePreviewProps {
-  content: string;
+  content: Blob;
 }
 
 export default function ResumePreview({ content }: ResumePreviewProps) {
-  const handleDownload = () => {
-    const blob = new Blob([content], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
+  const handleDownload = useCallback(() => {
+    const url = URL.createObjectURL(content);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "resume.txt";
+    a.download = "resume.pdf";
     a.click();
     URL.revokeObjectURL(url);
-  };
+  }, [content]);
 
   return (
     <div className="flex flex-col gap-4 w-full max-w-2xl mt-8">
