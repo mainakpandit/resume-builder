@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dlx *)",
+      "Bash(mkdir -p /Users/apple/Desktop/resume-builder/app/api/job-description)",
+      "Bash(pnpm add *)",
+      "Bash(grep -v '^\\\\.\\\\.$')",
+      "Bash(npm install *)",
+      "Bash(cat /Users/apple/.npm/_logs/2026-06-08T16_15_53_261Z-debug-0.log | tail -30)",
+      "Read(//Users/apple/.npm/_logs/**)",
+      "Bash(node -e \"const { z } = require\\('/Users/apple/Desktop/resume-builder/node_modules/.pnpm/zod@4.4.3/node_modules/zod'\\); console.log\\(z.string\\(\\).parse\\('ok'\\)\\)\")",
+      "Bash(pnpm type-check *)",
+      "Bash(pnpm build *)"
+    ],
+    "additionalDirectories": [
+      "/Users/apple/Desktop/resume-builder/app/api"
+    ]
+  }
+}
